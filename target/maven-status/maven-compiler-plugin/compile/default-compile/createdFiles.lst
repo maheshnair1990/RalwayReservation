@@ -1,1 +1,5 @@
+com\railway\controller\LoginController.class
+com\railway\uimodel\LoginUiModel.class
 com\railway\controller\RailwayController.class
+com\railway\dbmodel\LoginDbModel.class
+com\railway\uimodel\RegistrationUiModel.class
