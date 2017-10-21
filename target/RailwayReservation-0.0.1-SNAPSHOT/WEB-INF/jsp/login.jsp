@@ -13,11 +13,9 @@
         <title>Railway Home</title>
 
 
-        <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Open+Sans:400,300'>
-        <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
+        <%@include file="header.jsp" %>
+        <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/style.css" />"/>
 
-        <!--<link rel="stylesheet" href="css/style.css">-->
-<link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/style.css" />"/>
 
     </head>
 
@@ -29,10 +27,10 @@
                     <div class="cont_info_log_sign_up">
                         <div class="col_md_login">
                             <div class="cont_ba_opcitiy">
-                                
+
                                 <h2>LOGIN</h2>  
                                 <p>Login for Railway management</p> 
-                                <button class="btn_login" onclick="cambiar_login()">LOGIN</button>
+                                <button  id="beforeLogin" class="btn_login" onclick="cambiar_login()">LOGIN</button>
                             </div>
                         </div>
                         <div class="col_md_sign_up">
@@ -40,7 +38,7 @@
                                 <h2>SIGN UP</h2>
 
 
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                <p>Register to Sign In</p>
 
                                 <button class="btn_sign_up" onclick="cambiar_sign_up()">SIGN UP</button>
                             </div>
@@ -62,27 +60,63 @@
                             <a href="#" onclick="ocultar_login_sign_up()" ><i class="material-icons">&#xE5C4;</i></a>
                             <h2>LOGIN</h2>
                             <form:form method="POST" action="/RailwayReservation/login/doLogin" modelAttribute="loginUiModel">
-<!--                                <input type="text" placeholder="Email" />
-                                <input type="password" placeholder="Password" />-->
-                             <form:input  path="userName" placeholder="Email" style="height: 30px;width: 260px;"/>
-                          <br/><br/>
-                             <form:input  path="password" placeholder="password" style="height: 30px;width: 260px;"/>
-                                <br/><br/>
-                             <input class="btn_login" type="submit" value="Login" />
+                                <!--                                <input type="text" placeholder="Email" />
+                                                                <input type="password" placeholder="Password" />-->
+                                <div>
+                                    <form:input    data-validation="required" data-validation-error-msg="Please enter the user Name"  path="userName" placeholder="Email" style="height: 30px;width: 260px;"/>
+                                    <br/>   <form:errors htmlEscape="false" path="userName" cssClass="error"/>        
+                                </div>
+                                <br/>
+                                <div>
+                                    <form:input  data-validation="required"   data-validation-error-msg="Please enter the password" path="password" placeholder="password" style="height: 30px;width: 260px;"/>
+                                    <br/>   <form:errors htmlEscape="false" path="password" cssClass="error"/>        
+                                </div>
+                                <br/>
+                                <input class="btn_login"  type="submit" value="Login" />
                             </form:form>
 
                         </div>
 
                         <div class="cont_form_sign_up">
                             <a href="#" onclick="ocultar_login_sign_up()"><i class="material-icons">&#xE5C4;</i></a>
-                            <h2>SIGN UP</h2>
-                            <input type="text" placeholder="Email" />
-                            <input type="text" placeholder="User" />
-                            <input type="password" placeholder="Password" />
-                            <input type="password" placeholder="Confirm Password" />
-                            <button class="btn_sign_up" onclick="cambiar_sign_up()">SIGN UP</button>
 
+                            <div style="padding-right: 72px;padding-top: 10px;">
+                                <h3>SIGN UP</h3>
+                            </div>
+
+                            <form:form id="register" method="POST" action="/RailwayReservation/login/register/user" modelAttribute="registerUiModel">
+
+
+                                <div>
+                                    <form:input data-validation="required" data-validation-error-msg="Please enter email-id"  path="email" placeholder="Email" style="height: 30px;width: 260px;"/>
+                                    <br/>          <form:errors htmlEscape="false" path="email" cssClass="error"/>        
+                                </div>
+                                <br/>
+
+                                <div>
+                                    <form:input path="user" data-validation="required" data-validation-error-msg="Please enter user name" placeholder="User" style="height: 30px;width: 260px;" />
+                                    <br/>   <form:errors htmlEscape="false" path="user" cssClass="error"/>        
+                                </div>
+                                <br/>
+                                <div>
+                                    <form:input path="password" data-validation="required" data-validation-error-msg="Please enter password" placeholder="Password" style="height: 30px;width: 260px;"/>
+                                    <br/>   <form:errors htmlEscape="false" path="password" cssClass="error"/>        
+                                </div>
+                                <br/>
+                                <div>
+                                    <form:input path="cnfrmPassword" data-validation="required" data-validation-error-msg="Please enter confirm password" placeholder="Confirm Password" style="height: 30px;width: 260px;"/>
+                                    <br/>   <form:errors htmlEscape="false" path="cnfrmPassword" cssClass="error"/>        
+                                </div>
+
+
+
+                                <input class="btn_sign_up" type="submit" value="Sign up" />
+
+                            </form:form>
                         </div>
+
+
+
 
                     </div>
 
@@ -90,10 +124,10 @@
             </div>
         </div>
 
-        <!--<script  src="js/index.js"></script>--> 
-        <script type="text/javascript" src="<c:url value='/resources/js/index.js'/>"></script>
 
+        <%@include file="footer.jsp" %>
+        <script type="text/javascript" src="<c:url value='/resources/js/loginScript.js'/>"></script>
     </body>
-    
-    
+
+
 </html>

@@ -1,5 +1,10 @@
-com\railway\controller\LoginController.class
-com\railway\uimodel\LoginUiModel.class
-com\railway\controller\RailwayController.class
-com\railway\dbmodel\LoginDbModel.class
-com\railway\uimodel\RegistrationUiModel.class
+com/railway/helpers/Response.class
+com/railway/uimodel/LoginUiModel.class
+com/railway/dbmodel/LoginDbModel.class
+com/railway/helpers/User.class
+com/railway/uimodel/BookTicketUiModel.class
+com/railway/uimodel/TrainUiModel.class
+com/railway/controller/LoginController.class
+com/railway/controller/RailwayController.class
+com/railway/uimodel/RegistrationUiModel.class
+com/railway/dbmodel/LoginDbModel$1.class
