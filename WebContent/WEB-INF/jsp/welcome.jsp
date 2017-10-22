@@ -87,12 +87,13 @@
             <div id="table-div">
 
                 <table border="2" width="70%" cellpadding="2">  
-                    <tr><th>Train Number</th><th>Train Name</th><th>From Station</th><th>Arrival time</th><th>Depature Time</th><th>Book ticket</th></tr>  
+                    <tr><th>Train Number</th><th>Train Name</th><th>From Station</th><th>Ticket Availiable/Waiting List</th><th>Arrival time</th><th>Depature Time</th><th>Book ticket</th></tr>  
                             <c:forEach var="train" items="${list}">   
                         <tr>  
                             <td>${train.trainNo}</td>  
                             <td>${train.train}</td>  
                             <td>${train.station}</td>  
+                            <td>${train.ticketAvailiable}</td> 
                             <td>${train.arrivalTime}</td>  
                             <td>${train.depTime}</td>  
                             <td><a href="editemp/${train.trainNo}">Book Now</a></td>  
