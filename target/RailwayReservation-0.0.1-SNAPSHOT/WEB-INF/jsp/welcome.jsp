@@ -87,15 +87,30 @@
             <div id="table-div">
 
                 <table border="2" width="70%" cellpadding="2">  
-                    <tr><th>Train Number</th><th>Train Name</th><th>From Station</th><th>Arrival time</th><th>Depature Time</th><th>Book ticket</th></tr>  
+                    <tr><th>Train Number</th><th>Train Name</th><th>From Station</th><th>Ticket Availiable/Waiting List</th><th>Arrival time</th><th>Depature Time</th><th>Book ticket</th></tr>  
                             <c:forEach var="train" items="${list}">   
                         <tr>  
                             <td>${train.trainNo}</td>  
                             <td>${train.train}</td>  
                             <td>${train.station}</td>  
+                            <c:choose>
+                                <c:when test="${train.ticketAvailiable gt 0}">
+                                    <td>${train.ticketAvailiable}</td> 
+                                </c:when>
+                                <c:when test="${train.ticketAvailiable le 0}">
+                                    <td>Ticket Not Availiable</td> 
+                                </c:when>
+                            </c:choose>  
                             <td>${train.arrivalTime}</td>  
                             <td>${train.depTime}</td>  
-                            <td><a href="editemp/${train.trainNo}">Book Now</a></td>  
+                            <c:choose>
+                                <c:when test="${train.ticketAvailiable gt 0}">
+                            <td><a href="/RailwayReservation/login/ticket/show/${train.trainNo}">Book Now</a></td>  
+                                </c:when>
+                                <c:when test="${train.ticketAvailiable le 0}">
+                                    <td>Ticket Not Availiable</td> 
+                                </c:when>
+                            </c:choose>  
 
                         </tr>  
                     </c:forEach>  

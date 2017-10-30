@@ -1,9 +1,11 @@
 com/railway/helpers/Response.class
 com/railway/uimodel/LoginUiModel.class
+com/railway/uimodel/CancelTicketUiModel.class
 com/railway/dbmodel/LoginDbModel.class
 com/railway/helpers/User.class
 com/railway/uimodel/BookTicketUiModel.class
 com/railway/uimodel/TrainUiModel.class
+com/railway/dbmodel/LoginDbModel$2.class
 com/railway/controller/LoginController.class
 com/railway/controller/RailwayController.class
 com/railway/uimodel/RegistrationUiModel.class

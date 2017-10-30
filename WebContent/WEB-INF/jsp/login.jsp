@@ -20,10 +20,12 @@
     </head>
 
     <body>
+
         <div class="cotn_principal">
             <div class="cont_centrar">
 
                 <div class="cont_login">
+
                     <div class="cont_info_log_sign_up">
                         <div class="col_md_login">
                             <div class="cont_ba_opcitiy">
@@ -32,6 +34,8 @@
                                 <p>Login for Railway management</p> 
                                 <button  id="beforeLogin" class="btn_login" onclick="cambiar_login()">LOGIN</button>
                             </div>
+                            <span style="color:red">${errorMessage}</span>
+
                         </div>
                         <div class="col_md_sign_up">
                             <div class="cont_ba_opcitiy">

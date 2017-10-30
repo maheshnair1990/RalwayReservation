@@ -15,11 +15,14 @@
     <body>
 
         <div class="topnav" id="myTopnav">
-            <a href="#home">Home</a>
-            <a href="#Reserve">Ticket Reservation</a>
-            <a href="#contact">Ticket Status</a>
+            <a href="/RailwayReservation/login/home">Home</a>
+            <a href="/RailwayReservation/login/ticket/cancel">Ticket Status</a>
             <a href="#about">About</a>
+            <span class="nav-log-out"> 
+                <a href="/RailwayReservation/">Log Out</a>
+            </span>
             <span class="topnav-user"> ${userSession.user}</span>
+
         </div>
 
     </body>

@@ -93,10 +93,24 @@
                             <td>${train.trainNo}</td>  
                             <td>${train.train}</td>  
                             <td>${train.station}</td>  
-                            <td>${train.ticketAvailiable}</td> 
+                            <c:choose>
+                                <c:when test="${train.ticketAvailiable gt 0}">
+                                    <td>${train.ticketAvailiable}</td> 
+                                </c:when>
+                                <c:when test="${train.ticketAvailiable le 0}">
+                                    <td>Ticket Not Availiable</td> 
+                                </c:when>
+                            </c:choose>  
                             <td>${train.arrivalTime}</td>  
                             <td>${train.depTime}</td>  
-                            <td><a href="editemp/${train.trainNo}">Book Now</a></td>  
+                            <c:choose>
+                                <c:when test="${train.ticketAvailiable gt 0}">
+                            <td><a href="/RailwayReservation/login/ticket/show/${train.trainNo}">Book Now</a></td>  
+                                </c:when>
+                                <c:when test="${train.ticketAvailiable le 0}">
+                                    <td>Ticket Not Availiable</td> 
+                                </c:when>
+                            </c:choose>  
 
                         </tr>  
                     </c:forEach>  

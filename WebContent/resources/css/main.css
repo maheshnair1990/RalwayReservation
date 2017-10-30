@@ -47,7 +47,10 @@ and open the template in the editor.
     text-transform: uppercase;
 }
 
-
+.nav-log-out{
+    float: right; 
+    color: #01b2e6;
+}
 /*------------------Css for Menu Ends here------------------------*/
 
 /*------------------Form Error------------------------*/
