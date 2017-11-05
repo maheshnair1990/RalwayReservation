@@ -12,6 +12,7 @@ import com.railway.uimodel.BookTicketUiModel;
 import com.railway.uimodel.CancelTicketUiModel;
 import com.railway.uimodel.LoginUiModel;
 import com.railway.uimodel.RegistrationUiModel;
+import com.railway.uimodel.TrainAdminUiModel;
 import com.railway.uimodel.TrainUiModel;
 import java.util.List;
 import javax.servlet.http.HttpSession;
@@ -49,13 +50,24 @@ public class LoginController {
 
 //        LoginDbModel loginDbModel = new LoginDbModel();
         boolean loginFlag = loginDbModel.getUser(loginUiModel.getUserName(), loginUiModel.getPassword());
+        String userAdmin = loginUiModel.getUserName();
         User user = new User();
 
         if (loginFlag) {
             model.addAttribute("bookTicket", new BookTicketUiModel());
             user.setUser(loginUiModel.getUserName());
             session.setAttribute("userSession", user);
-            return "welcome";
+            if (userAdmin.equals("admin")) {
+                List<TrainUiModel> list = loginDbModel.getAllTrain();
+                model.addAttribute("list", list);
+                model.addAttribute("trainAdminUiModel", new TrainAdminUiModel());
+                model.addAttribute("message", "");
+
+                return "welcomeAdmin";
+            } else {
+                return "welcome";
+
+            }
         } else {
             model.addAttribute("errorMessage", "Incorrect username and password");
             model.addAttribute("loginUiModel", new LoginUiModel());
@@ -120,8 +132,20 @@ public class LoginController {
 
     @RequestMapping(value = "/login/home", method = RequestMethod.GET)
     public String getHomePage(HttpSession session, Model model) {
-        model.addAttribute("bookTicket", new BookTicketUiModel());
-        return "welcome";
+        String userId = ((User) session.getAttribute("userSession")).getUser();
+
+        if (userId.equals("admin")) {
+            List<TrainUiModel> list = loginDbModel.getAllTrain();
+            model.addAttribute("list", list);
+            model.addAttribute("trainAdminUiModel", new TrainAdminUiModel());
+            model.addAttribute("message", "");
+
+            return "welcomeAdmin";
+        } else {
+            model.addAttribute("bookTicket", new BookTicketUiModel());
+            return "welcome";
+        }
+
     }
 
     @RequestMapping(value = "/login/ticket/cancel", method = RequestMethod.GET)
@@ -150,6 +174,80 @@ public class LoginController {
         model.addAttribute("list", list);
 
         return "TicketStatus";
+    }
+
+    @RequestMapping(value = "/login/train/add", method = RequestMethod.POST)
+    public String addTrain(Model model, @ModelAttribute("trainAdminUiModel") TrainAdminUiModel trainAdminUiModel) {
+        int count = loginDbModel.insertTrain(trainAdminUiModel);
+
+        if (count == 1) {
+            List<TrainUiModel> list = loginDbModel.getAllTrain();
+            model.addAttribute("list", list);
+            model.addAttribute("message", "Train Successfully Added");
+            model.addAttribute("trainAdminUiModel", new TrainAdminUiModel());
+
+            return "welcomeAdmin";
+        } else {
+            List<TrainUiModel> list = loginDbModel.getAllTrain();
+            model.addAttribute("list", list);
+            model.addAttribute("message", "Error in Adding Train");
+            model.addAttribute("trainAdminUiModel", new TrainAdminUiModel());
+
+            return "welcomeAdmin";
+        }
+
+    }
+
+    @RequestMapping(value = "/login/train/edit/get/{trainNo}", method = RequestMethod.GET)
+    public String getEditTrain(Model model, @PathVariable String trainNo) {
+        TrainAdminUiModel trainAdminUiModel = loginDbModel.getTrainById(trainNo);
+        model.addAttribute("trainAdminUiModel", trainAdminUiModel);
+        return "editTrain";
+
+    }
+
+    @RequestMapping(value = "/login/train/delete/{trainNo}", method = RequestMethod.GET)
+    public String deleteTrain(Model model, @PathVariable String trainNo) {
+        int count = loginDbModel.deleteTrain(trainNo);
+
+        if (count == 1) {
+            List<TrainUiModel> list = loginDbModel.getAllTrain();
+            model.addAttribute("list", list);
+            model.addAttribute("message", "Train Successfully Deleted");
+            model.addAttribute("trainAdminUiModel", new TrainAdminUiModel());
+
+            return "welcomeAdmin";
+        } else {
+            List<TrainUiModel> list = loginDbModel.getAllTrain();
+            model.addAttribute("list", list);
+            model.addAttribute("message", "Error in Deleting Train");
+            model.addAttribute("trainAdminUiModel", new TrainAdminUiModel());
+
+            return "welcomeAdmin";
+        }
+
+    }
+
+    @RequestMapping(value = "/login/train/edit", method = RequestMethod.POST)
+    public String editTrain(Model model, @ModelAttribute("trainAdminUiModel") TrainAdminUiModel trainAdminUiModel) {
+        int count = loginDbModel.updateTrain(trainAdminUiModel);
+
+        if (count == 1) {
+            List<TrainUiModel> list = loginDbModel.getAllTrain();
+            model.addAttribute("list", list);
+            model.addAttribute("message", "Train Successfully Updated");
+            model.addAttribute("trainAdminUiModel", new TrainAdminUiModel());
+
+            return "welcomeAdmin";
+        } else {
+            List<TrainUiModel> list = loginDbModel.getAllTrain();
+            model.addAttribute("list", list);
+            model.addAttribute("message", "Error in Updating Train");
+            model.addAttribute("trainAdminUiModel", new TrainAdminUiModel());
+
+            return "welcomeAdmin";
+        }
+
     }
 
 }

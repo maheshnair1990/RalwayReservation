@@ -9,6 +9,7 @@ package com.railway.dbmodel;
 import com.railway.uimodel.BookTicketUiModel;
 import com.railway.uimodel.CancelTicketUiModel;
 import com.railway.uimodel.RegistrationUiModel;
+import com.railway.uimodel.TrainAdminUiModel;
 import com.railway.uimodel.TrainUiModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +17,9 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 //import org.springframework.jdbc.core.BeanPropertyRowMapper;  
 
 /**
@@ -66,6 +69,22 @@ public class LoginDbModel {
 
     public List<TrainUiModel> getTrain(String stationFrom) {
         String sql = "select * from trains where stations='" + stationFrom + "'";
+        return template.query(sql, new RowMapper<TrainUiModel>() {
+            public TrainUiModel mapRow(ResultSet rs, int row) throws SQLException {
+                TrainUiModel e = new TrainUiModel();
+                e.setTrainNo(rs.getInt(1));
+                e.setStation(rs.getString(2));
+                e.setTrain(rs.getString(3));
+                e.setTicketAvailiable(rs.getInt(4));
+                e.setArrivalTime(rs.getString(5));
+                e.setDepTime(rs.getString(6));
+                return e;
+            }
+        });
+    }
+
+    public List<TrainUiModel> getAllTrain() {
+        String sql = "select * from trains";
         return template.query(sql, new RowMapper<TrainUiModel>() {
             public TrainUiModel mapRow(ResultSet rs, int row) throws SQLException {
                 TrainUiModel e = new TrainUiModel();
@@ -135,6 +154,50 @@ public class LoginDbModel {
         } else {
             return count;
         }
+    }
+
+    public int insertTrain(TrainAdminUiModel trainAdminUiModel) {
+
+        String sql = "insert into trains (stations,trains,ticket_availiable,arrival_time,depature_time)values ('" + trainAdminUiModel.getStation() + "','" + trainAdminUiModel.getTrainName() + "','" + trainAdminUiModel.getTickets() + "','" + trainAdminUiModel.getArrivalTime() + "',"
+                + "'" + trainAdminUiModel.getDepatureTime() + "');";
+        int count = template.update(sql);
+        return count;
+
+    }
+
+    public int updateTrain(TrainAdminUiModel trainAdminUiModel) {
+
+        String sql = "update trains set stations='" + trainAdminUiModel.getStation() + "',trains='" + trainAdminUiModel.getTrainName() + "',ticket_availiable='" + trainAdminUiModel.getTickets() + "',arrival_time='" + trainAdminUiModel.getArrivalTime() + "',depature_time="
+                + "'" + trainAdminUiModel.getDepatureTime() + "' where train_no=" + trainAdminUiModel.getTrainNumber();
+        int count = template.update(sql);
+        return count;
+
+    }
+
+    public TrainAdminUiModel getTrainById(String id) {
+        String sql = "select * from trains where train_no='" + id + "'";
+        return (TrainAdminUiModel) template.queryForObject(sql, new RowMapper() {
+            @Override
+            public TrainAdminUiModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+                TrainAdminUiModel e = new TrainAdminUiModel();
+                e.setTrainNumber(String.valueOf(rs.getInt(1)));
+                e.setStation(rs.getString(2));
+                e.setTrainName(rs.getString(3));
+                e.setTickets(rs.getInt(4));
+                e.setArrivalTime(rs.getString(5));
+                e.setDepatureTime(rs.getString(6));
+                return e;
+
+            }
+        });
+    }
+
+    public int deleteTrain(String train_no) {
+
+        String sql = "Delete from trains where train_no=" + train_no;
+        int count = template.update(sql);
+        return count;
+
     }
 
 }

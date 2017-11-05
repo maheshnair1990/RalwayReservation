@@ -1,6 +1,7 @@
 /home/mahesh/railway_college/RalwayReservation/src/com/railway/uimodel/TrainUiModel.java
 /home/mahesh/railway_college/RalwayReservation/src/com/railway/controller/RailwayController.java
 /home/mahesh/railway_college/RalwayReservation/src/com/railway/controller/LoginController.java
+/home/mahesh/railway_college/RalwayReservation/src/com/railway/uimodel/TrainAdminUiModel.java
 /home/mahesh/railway_college/RalwayReservation/src/com/railway/uimodel/CancelTicketUiModel.java
 /home/mahesh/railway_college/RalwayReservation/src/com/railway/helpers/Response.java
 /home/mahesh/railway_college/RalwayReservation/src/com/railway/uimodel/BookTicketUiModel.java
